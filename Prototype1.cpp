@@ -1,23 +1,14 @@
 #include<iostream>
 #include<cstring>
 #include<string>
-#include<locale>
 #include<algorithm>
 using namespace std;
 
 #define invalid -1
 
-//CAPITALISES THE VOTE
-string toU(string s){
-	locale l;
-	for(int i=0; i<s.length(); i++)
-		toupper(s[i], l);
-	cout << s << endl;
-	return s;
-}
-
 //removes invalid characters
 string remover(string s, char last){
+	cout << s << endl;
 	int i=0;
 	while(i<s.length()){
 		if(s[i]<'A'||last<s[i])	s.erase(i, 1);
@@ -60,7 +51,9 @@ int main(){
 			for(int i=0; i<v; i++){
 				string s;
 				cin >> s;
-				s = toU(s);
+				
+				//CAPITALIZATION!
+				transform(s.begin(), s.end(), s.begin(), ::toupper);
 				const char lc = 'A' + n - 1;
 				s = remover(s, lc);
 				if(valchecker(s)){
@@ -68,7 +61,7 @@ int main(){
 				}else{
 					//INVALID!
 					for(int j=0; j<n; j++)
-						r[i][j]=-1;
+						r[i][j]=invalid;
 				}
 			}
 			
