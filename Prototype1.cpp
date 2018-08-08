@@ -7,6 +7,7 @@ using namespace std;
 
 #define invalid -1
 
+//CAPITALISES THE VOTE
 string toU(string s){
 	locale l;
 	for(int i=0; i<s.length(); i++)
@@ -15,6 +16,7 @@ string toU(string s){
 	return s;
 }
 
+//removes invalid characters
 string remover(string s, char last){
 	int i=0;
 	while(i<s.length()){
@@ -25,7 +27,9 @@ string remover(string s, char last){
 	return s;
 }
 
+//judges if the vote is valid
 bool valchecker(string s){
+	if(s.empty())	return false;
 	stable_sort(s.begin(), s.end());
 	cout << s << endl;
 	for(int i=0; i<s.length(); i++)
@@ -39,16 +43,20 @@ int main(){
 	int n;
 	cin >> n;
 	if(n<2||n>27){
+		//Error
 		cout << "That seems too few/many.\n";
 	}else{
-		cout << "How many votes? :";
 		int v;
+		
+		cout << "How many votes? :";
 		cin >> v;
 		if(v<1){
 			cout << "What?! Then this program is inappropriate for that case.\n";
 		}else{
 			cout << "From now, you must input all the votes. You must separate each vote by space.\n";
 			double r[v][n]={0};
+			
+			//Below Here:gets votes and record placement.
 			for(int i=0; i<v; i++){
 				string s;
 				cin >> s;
@@ -56,12 +64,20 @@ int main(){
 				const char lc = 'A' + n - 1;
 				s = remover(s, lc);
 				if(valchecker(s)){
+					//VALID VOTE
 				}else{
+					//INVALID!
 					for(int j=0; j<n; j++)
 						r[i][j]=-1;
 				}
 			}
+			
+			//Below Here:calculation! hooray!
+			
 		}
+		cout << "Copy and paste the following text to your spreadsheet:\n";
+		
+		//Below Here:result by character
 	}
 	return 0;
 }
