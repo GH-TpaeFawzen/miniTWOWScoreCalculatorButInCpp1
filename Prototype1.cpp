@@ -24,7 +24,7 @@ bool valchecker(string s){
 	stable_sort(s.begin(), s.end());
 	cout << s << endl;	//DeBuG
 	for(int i=0; i<s.length(); i++)
-		if(s.find(s[i])==string::npos)	return false;
+		if(s.find(s[i], i)==string::npos)	return false;
 	return true;
 }
 
