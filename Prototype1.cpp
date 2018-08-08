@@ -23,8 +23,8 @@ bool valchecker(string s){
 	if(s.empty())	return false;
 	stable_sort(s.begin(), s.end());
 	cout << s << endl;	//DeBuG
-	for(int i=0; i<s.length(); i++)
-		if(s.find(s[i], i)==string::npos)	return false;
+	for(int i=0; i<s.length()-1; i++)
+		if(s[i]==s[i+1])	return false;
 	return true;
 }
 
