@@ -7,6 +7,7 @@ Since I am used in C++ the most, I try making a prototype using the language.
 	2. It has **from 2 to 26 responses.**
 	3. From above, **each response has alphabet from letter A in alphabetical order.**
 	4. **Each vote has no square brackets.**
+	7. **Each voter voted only once.**
 	5. **Any votes having same characters twice or more times will be invalid.** e.g. *A*BCDEF*A*
 	6. You are using **spreadsheet** or something to make results.
 2. You are asked to input how many responses there are and you input the value.
