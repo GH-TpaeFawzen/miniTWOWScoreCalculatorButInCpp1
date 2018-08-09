@@ -47,6 +47,7 @@ int main(){
 		}else{
 			cout << "From now, you must input all the votes. You must separate each vote by space.\n";
 			double r[v][n]={0};
+			unsigned valids = 0;
 			
 			//Below Here:gets votes and record placement.
 			for(int i=0; i<v; i++){
@@ -66,6 +67,7 @@ int main(){
 						int tmp = s.find('A'+j);
 						r[i][j]=(tmp==string::npos)?unranked:tmp+1;
 					}
+					valids++;
 				}else{
 					cout << "An invalid vote got input.\n";
 					//INVALID!
@@ -82,26 +84,37 @@ int main(){
 			}
 			
 			//Below Here:calculation! hooray!
-			double ravr[n], rsd[n];
-			for(int i=0; i<n; i++){
-				double sum=0;
-				for(int j=0; j<v; j++){
-					sum+=r[j][i];
+			if(valids>0){
+				double ravr[n], rsd[n];
+				for(int i=0; i<n; i++){
+					double sum=0;
+					for(int j=0; j<v; j++){
+						sum+=(r[j][i]==invalid)?0:r[j][i];
+					}
+					ravr[i]=sum/valids;
+					
+					double sum0=0;
+					for(int j=0; j<v; j++){
+						sum0+=(r[j][i]==invalid)?0:r[j][i]*r[j][i]-ravr[i]*ravr[i];
+					}
+					rsd[i]=sqrt(sum0/valids);
 				}
-				ravr[i]=sum/v;
-				
-				double sum0=0;
-				for(int j=0; j<v; j++){
-					sum0+=r[j][i]*r[j][i]-ravr[i]*ravr[i];
+							
+				//Below Here:result by character
+				cout << "Copy and paste the following text to your spreadsheet:\n";
+				if(valids>1){
+					cout << "Alphabet\tAverage\tStandard Deviation\n";
+					for(int i=0; i<n; i++){
+						cout << (char)('A'+i) << '\t' << ravr[i] << '\t' << rsd[i] << '\n';
+					}
+				}else{
+					cout << "Alphabet\tAverage\tStandard Deviation\n";
+					for(int i=0; i<n; i++){
+						cout << (char)('A'+i) << '\t' << ravr[i] << "\tN/A\n";
+					}
 				}
-				rsd[i]=sqrt(sum0/v);
-			}
-						
-			//Below Here:result by character
-			cout << "Copy and paste the following text to your spreadsheet:\n";
-			cout << "Alphabet\tAverage\tStandard Deviation\n";
-			for(int i=0; i<n; i++){
-				cout << ('A'+i) << '\t' << ravr[i] << '\t' << rsd[i] << '\n';
+			}else{
+				cout << "There were only invalid votes.... \n";
 			}
 		}
 	}
