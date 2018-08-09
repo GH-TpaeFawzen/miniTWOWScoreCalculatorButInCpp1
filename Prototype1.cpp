@@ -2,6 +2,7 @@
 #include<cstring>
 #include<string>
 #include<algorithm>
+#include<cmath>
 using namespace std;
 
 #define invalid -1
@@ -66,6 +67,7 @@ int main(){
 						r[i][j]=(tmp==string::npos)?unranked:tmp+1;
 					}
 				}else{
+					cout << "An invalid vote got input.\n";
 					//INVALID!
 					for(int j=0; j<n; j++)
 						r[i][j]=invalid;
@@ -80,11 +82,27 @@ int main(){
 			}
 			
 			//Below Here:calculation! hooray!
-			
-			cout << "Copy and paste the following text to your spreadsheet:\n";
-			
+			double ravr[n], rsd[n];
+			for(int i=0; i<n; i++){
+				double sum=0;
+				for(int j=0; j<v; j++){
+					sum+=r[j][i];
+				}
+				ravr[i]=sum/v;
+				
+				double sum0=0;
+				for(int j=0; j<v; j++){
+					sum0+=r[j][i]*r[j][i]-ravr[i]*ravr[i];
+				}
+				rsd[i]=sqrt(sum0/v);
+			}
+						
 			//Below Here:result by character
-			
+			cout << "Copy and paste the following text to your spreadsheet:\n";
+			cout << "Alphabet\tAverage\tStandard Deviation\n";
+			for(int i=0; i<n; i++){
+				cout << ('A'+i) << '\t' << ravr[i] << '\t' << rsd[i] << '\n';
+			}
 		}
 	}
 	return 0;
