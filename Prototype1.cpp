@@ -32,13 +32,13 @@ bool valchecker(string s){
 int main(){
 	cout << "This program is for single voting screen." << endl;
 	cout << "How many responses? : ";
-	int n;
+	int n;	//how many responses?
 	cin >> n;
 	if(n<2||n>27){
 		//Error
 		cout << "That seems too few/many.\n";
 	}else{
-		int v;
+		int v;	//how many votes to input?
 		
 		cout << "How many votes? :";
 		cin >> v;
@@ -46,8 +46,9 @@ int main(){
 			cout << "What?! Then this program is inappropriate for that case.\n";
 		}else{
 			cout << "From now, you must input all the votes. You must separate each vote by space.\n";
-			double r[v][n]={0};
-			unsigned valids = 0;
+			//double r[v][n]={0};	//mini-ranks
+			double ms[v][n]={0};	//mini-scores
+			unsigned valids = 0;	//how many valid votes?
 			
 			//Below Here:gets votes and record placement.
 			for(int i=0; i<v; i++){
@@ -65,39 +66,47 @@ int main(){
 					cout << unranked << endl;	//DeBuG
 					for(int j=0; j<n; j++){
 						int tmp = s.find('A'+j);
-						r[i][j]=(tmp==string::npos)?unranked:tmp+1;
+						//r[i][j]=(tmp==string::npos)?unranked:tmp+1;
+						ms[i][j]=(tmp==string::npos)?unranked:(n-tmp-1.0)*100.0/(n-1.0);
 					}
 					valids++;
 				}else{
 					cout << "An invalid vote got input.\n";
 					//INVALID!
 					for(int j=0; j<n; j++)
-						r[i][j]=invalid;
+						//r[i][j]=invalid;
+						ms[i][j]=invalid;
 				}
 			}
 			
 			//DeBuG
 			for(int i=0; i<v; i++){
 				for(int j=0; j<n; j++)
-					cout << r[i][j] << ' ';
+					//cout << r[i][j] << ' ';
+					cout << ms[i][j] << ' ';
 				cout << endl;
 			}
 			
 			//Below Here:calculation! hooray!
 			if(valids>0){
-				double ravr[n], rsd[n];
+				//double ravr[n], rsd[n];
+				double avr[n], sd[n];
 				for(int i=0; i<n; i++){
 					double sum=0;
 					for(int j=0; j<v; j++){
-						sum+=(r[j][i]==invalid)?0:r[j][i];
+						//sum+=(r[j][i]==invalid)?0:r[j][i];
+						sum+=(ms[j][i]==invalid)?0:ms[j][i];
 					}
-					ravr[i]=sum/valids;
+					//ravr[i]=sum/valids;
+					avr[i]=sum/valids;
 					
 					double sum0=0;
 					for(int j=0; j<v; j++){
-						sum0+=(r[j][i]==invalid)?0:r[j][i]*r[j][i]-ravr[i]*ravr[i];
+						//sum0+=(r[j][i]==invalid)?0:r[j][i]*r[j][i]-ravr[i]*ravr[i];
+						sum0+=(ms[j][i]==invalid)?0:ms[j][i]*ms[j][i]-avr[i]*avr[i];
 					}
-					rsd[i]=sqrt(sum0/valids);
+					//rsd[i]=sqrt(sum0/valids);
+					sd[i]=sqrt(sum0/valids);
 				}
 							
 				//Below Here:result by character
@@ -105,12 +114,14 @@ int main(){
 				if(valids>1){
 					cout << "Alphabet\tAverage\tStandard Deviation\n";
 					for(int i=0; i<n; i++){
-						cout << (char)('A'+i) << '\t' << ravr[i] << '\t' << rsd[i] << '\n';
+						//cout << (char)('A'+i) << '\t' << ravr[i] << '\t' << rsd[i] << '\n';
+						cout << (char)('A'+i) << '\t' << avr[i] << '\t' << sd[i] << '\n';
 					}
 				}else{
 					cout << "Alphabet\tAverage\tStandard Deviation\n";
 					for(int i=0; i<n; i++){
-						cout << (char)('A'+i) << '\t' << ravr[i] << "\tN/A\n";
+						//cout << (char)('A'+i) << '\t' << ravr[i] << "\tN/A\n";
+						cout << (char)('A'+i) << '\t' << avr[i] << "\tN/A\n";
 					}
 				}
 			}else{
