@@ -157,7 +157,7 @@ int main(){
 					cout << unranked << endl;	//DeBuG
 					for(int j=0; j<n; j++){
 						int tmp = s.find('A'+j);
-						ms[i][j]=(tmp==string::npos)?unranked:(n-tmp-1.0)*100.0/(n-1.0);
+						ms[i][j]=(tmp==string::npos)?(n-unranked)*100.0/(n-1.0):(n-tmp-1.0)*100.0/(n-1.0);
 					}				
 				}
 				
@@ -218,6 +218,8 @@ int main(){
 			//Below Here:calculation! hooray!
 			if(valids>0){
 				//double ravr[n], rsd[n];
+				
+				//average calculation
 				double avr[n], sd[n];
 				for(int i=0; i<n; i++){
 					double sum=0;
@@ -231,12 +233,11 @@ int main(){
 					if(valids>1){
 						//ravr[i]=sum/valids;
 						
-						
-						double sum0=0;
+						//SD calculation
 						for(int i=0; i<n; i++){
+							double sum0=0;
 							for(int j=0; j<v; j++){
-								//sum0+=(r[j][i]==invalid)?0:r[j][i]*r[j][i]-ravr[i]*ravr[i];
-								sum0+=(ms[j][i]==invalid)?0:ms[j][i]*ms[j][i]-avr[i]*avr[i];
+								sum0+=(ms[j][i]==invalid)?0:pow(ms[j][i]-avr[i], 2);
 							}
 							sd[i]=sqrt(sum0/valids);
 						}
