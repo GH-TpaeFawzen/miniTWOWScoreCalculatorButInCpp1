@@ -7,6 +7,7 @@ This is how it works. **This is for single-voting screen without keyword.** If y
 2. Execute the file.
 3. It will ask you some questions, so follow those.
 4. The file will give you text that you should copy and paste to your spreadsheet.
+
 Also, **feel free to leave "Issues".**
 
 # To Contributers
