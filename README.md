@@ -1,6 +1,13 @@
 # miniTWOWScoreCalculatorButInCpp1
 Since I am used in C++ the most, I try making a prototype using the language.
 
+# To Users
+This is how it works. **This is for single-voting screen without keyword.** If you are using some screens, I'm sorry, but please wait for new update.
+1. Download "Prototype1.cpp" and compile the file into execution file. (*I'm sorry, but please prepare C++ compiler.*)
+2. Execute the file.
+3. It will ask you some questions, so follow those.
+4. The file will give you text that you should copy and paste to your spreadsheet.
+
 # New Request Definition (added on 2018/08/22)
 1. You can choose one of the following options if you get the vote having same characters twice or more times:
 	1. Only the higher/highest one will be counted.
