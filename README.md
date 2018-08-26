@@ -7,6 +7,10 @@ This is how it works. **This is for single-voting screen without keyword.** If y
 2. Execute the file.
 3. It will ask you some questions, so follow those.
 4. The file will give you text that you should copy and paste to your spreadsheet.
+Also, **feel free to leave "Issues".**
+
+# To Contributers
+Feel free to fork my code and leave me "Issues".
 
 # New Request Definition (added on 2018/08/22)
 1. You can choose one of the following options if you get the vote having same characters twice or more times:
