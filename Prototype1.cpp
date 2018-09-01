@@ -116,7 +116,8 @@ bool dChecker(string s, bool debug=false){
 int main(int argc, char* argv[]){
 	bool debug=false;
 	if(argc==2){
-		if(argv[1]=="-d"){
+		string tmp = argv[1];
+		if(tmp=="-d"){
 			cout << "Since -d got input, this is running as debug mode.\n";
 			debug = true;
 		}
