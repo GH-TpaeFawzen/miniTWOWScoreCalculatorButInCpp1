@@ -8,8 +8,6 @@ using namespace std;
 
 #define invalid -1
 
-bool debug;
-
 //This chooses what do you do with votes with same characters twice or three times.
 enum Option{
 	Invalid = 0,
@@ -17,13 +15,12 @@ enum Option{
 	Lowest = 2,
 };
 
-string invRemover(string s, char last);
-string remover(string s, char l, Option o, int n);
-bool dChecker(string s);
-//bool valchecker(string s, Option o);
+string invRemover(string s, char last, bool debug);
+string remover(string s, char l, Option o, int n, bool debug);
+bool dChecker(string s, bool debug);
 
 //removes invalid characters
-string invRemover(string s, char last){
+string invRemover(string s, char last, bool debug=false){
 	if(debug){
 		cout << s << endl;	//DeBuG
 	}
@@ -41,11 +38,11 @@ string invRemover(string s, char last){
 }
 
 //removes double characters depends on option
-string remover(string s, char l, Option o, int n){
-	s=invRemover(s, l);
+string remover(string s, char l, Option o, int n, bool debug=false){
+	s=invRemover(s, l, debug);
 	if(s.empty())	return s;
 	
-	if(o==Invalid)	return (dChecker(s))?"":s;
+	if(o==Invalid)	return (dChecker(s, debug))?"":s;
 	
 	bool alS[n] = {false};	//stands for "already seen"
 	if(o==Highest){
@@ -104,7 +101,7 @@ string remover(string s, char l, Option o, int n){
 }
 
 //judges if it contains some same characters
-bool dChecker(string s){
+bool dChecker(string s, bool debug=false){
 	stable_sort(s.begin(), s.end());
 	
 	if(debug){
@@ -116,25 +113,13 @@ bool dChecker(string s){
 	return false;
 }
 
-/*
-//judges if the vote is valid
-bool valchecker(string s, Option o){
-	if(s.empty())	return false;
-	else if(o==Invalid)	return !(dChecker(s));
-	else	return true;
-}
-*/
-
 int main(int argc, char* argv[]){
+	bool debug=false;
 	if(argc==2){
 		if(argv[1]=="-d"){
 			cout << "Since -d got input, this is running as debug mode.\n";
 			debug = true;
-		}else{
-			debug=false;
 		}
-	}else{
-		debug=false;
 	}
 	
 	cout << "This program is for single voting screen." << endl;
@@ -163,7 +148,6 @@ int main(int argc, char* argv[]){
 			
 			
 			cout << "From now, you must input all the votes. You must separate each vote by space.\n";
-			//double r[v][n]={0};	//mini-ranks
 			double ms[v][n]={0};	//mini-scores
 			unsigned valids = 0;	//how many valid votes?
 			
@@ -177,8 +161,7 @@ int main(int argc, char* argv[]){
 				transform(s.begin(), s.end(), s.begin(), ::toupper);
 				
 				//Removes invalid chars.
-				//s = remover(s, lc);
-				s = remover(s, lc, option, n);
+				s = remover(s, lc, option, n, debug);
 				
 				//Here is the new version!
 				if(s.empty()){
