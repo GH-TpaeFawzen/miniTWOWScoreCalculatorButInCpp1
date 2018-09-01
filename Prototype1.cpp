@@ -8,6 +8,8 @@ using namespace std;
 
 #define invalid -1
 
+bool debug;
+
 //This chooses what do you do with votes with same characters twice or three times.
 enum Option{
 	Invalid = 0,
@@ -22,13 +24,19 @@ bool dChecker(string s);
 
 //removes invalid characters
 string invRemover(string s, char last){
-	cout << s << endl;	//DeBuG
+	if(debug){
+		cout << s << endl;	//DeBuG
+	}
+		
 	int i=0;
 	while(i<s.length()){
 		if(s[i]<'A'||last<s[i])	s.erase(i, 1);
 		else i++;
 	}
-	cout << s << endl;	//DeBuG
+	if(debug){
+		cout << s << endl;	//DeBuG
+	}
+		
 	return s;
 }
 
@@ -45,7 +53,10 @@ string remover(string s, char l, Option o, int n){
 		int i=0;
 		do{
 			//DeBuG Below
-			cout << s << endl;
+			if(debug){
+				cout << s << endl;
+			}
+				
 			for(int j=0; j<i; j++)
 				cout << ' ';
 			cout << '^' << endl;
@@ -56,14 +67,21 @@ string remover(string s, char l, Option o, int n){
 				alS[s[i]-'A']=true;
 				i++;
 			}
-			cout << s << endl;	//DeBuG
+			
+			if(debug){
+				cout << s << endl;	//DeBuG
+			}
+				
 		}while(i<s.length());
 	}else{
 		//Only the lowest one will alive!
 		int i=s.length()-1;
 		do{
 			//DeBuG Below
-			cout << s << endl;
+			if(debug){
+				cout << s << endl;
+			}
+				
 			for(int j=0; j<i; j++)
 				cout << ' ';
 			cout << '^' << endl;
@@ -75,7 +93,10 @@ string remover(string s, char l, Option o, int n){
 				alS[s[i]-'A']=true;
 				i--;
 			}
-			cout << s << endl;	//DeBuG
+			if(debug){
+				cout << s << endl;	//DeBuG
+			}
+				
 		}while(i>=0);
 	}
 	
@@ -85,7 +106,11 @@ string remover(string s, char l, Option o, int n){
 //judges if it contains some same characters
 bool dChecker(string s){
 	stable_sort(s.begin(), s.end());
-	cout << s << endl;	//DeBuG
+	
+	if(debug){
+		cout << s << endl;	//DeBuG
+	}
+		
 	for(int i=0; i<s.length()-1; i++)
 		if(s[i]==s[i+1])	return true;
 	return false;
@@ -100,7 +125,18 @@ bool valchecker(string s, Option o){
 }
 */
 
-int main(){
+int main(int argc, char* argv[]){
+	if(argc==2){
+		if(argv[1]=="-d"){
+			cout << "Since -d got input, this is running as debug mode.\n";
+			debug = true;
+		}else{
+			debug=false;
+		}
+	}else{
+		debug=false;
+	}
+	
 	cout << "This program is for single voting screen." << endl;
 	cout << "How many responses? : ";
 	int n;	//how many responses?
@@ -154,65 +190,26 @@ int main(){
 					//VALID VOTE
 					valids++;
 					const double unranked = (s.length()+1+n)/2.0;
-					cout << unranked << endl;	//DeBuG
+					
+					if(debug){
+						cout << unranked << endl;	//DeBuG
+					}
+						
 					for(int j=0; j<n; j++){
 						int tmp = s.find('A'+j);
 						ms[i][j]=(tmp==string::npos)?(n-unranked)*100.0/(n-1.0):(n-tmp-1.0)*100.0/(n-1.0);
 					}				
 				}
-				
-				//It's getting messed up!
-				/*
-				if(valchecker(s, option)){
-					//VALID VOTE
-					const double unranked = (s.length()+1+n)/2.0;
-					cout << unranked << endl;	//DeBuG
-					
-					if(!(dChecker(s))){
-						for(int j=0; j<n; j++){
-							int tmp = s.find('A'+j);
-							//r[i][j]=(tmp==string::npos)?unranked:tmp+1;
-							ms[i][j]=(tmp==string::npos)?unranked:(n-tmp-1.0)*100.0/(n-1.0);
-						}
-					}else{
-						bool alreadySeen[n]={false};
-						//If:Highest, from top to bottom
-						//If:Lowest, from bottom to top
-						if(option==Highest){
-							int j=0;
-							do{
-								//前からカウントただし一度出たものがあれば次の文字を見る
-								s[j];
-								j--;
-							}while();
-							
-						}else{
-							int j=n-1;
-							do{
-								//後ろからカウントただし一度出たものがあれば前の文字を見る
-								//でもこの場合は未投票の文字はどうしよう
-								//とりあえずどれが未投票なのかを全部探してから投票されたものを順位付けるのはどうだろうか
-								j--;
-							}while();
-						}
-					}
-					valids++;
-				}else{
-						cout << "An invalid vote got input.\n";
-						//INVALID!
-						for(int j=0; j<n; j++)
-							//r[i][j]=invalid;
-							ms[i][j]=invalid;
-				}
-				*/
 			}
 			
 			//DeBuG
-			for(int i=0; i<v; i++){
-				for(int j=0; j<n; j++)
-					//cout << r[i][j] << ' ';
-					cout << ms[i][j] << ' ';
-				cout << endl;
+			if(debug){
+				for(int i=0; i<v; i++){
+					for(int j=0; j<n; j++)
+						//cout << r[i][j] << ' ';
+						cout << ms[i][j] << ' ';
+					cout << endl;
+				}
 			}
 			
 			//Below Here:calculation! hooray!
