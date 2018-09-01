@@ -1,12 +1,25 @@
 # miniTWOWScoreCalculatorButInCpp1
 Since I am used in C++ the most, I try making a prototype using the language.
 
+# Repository
+The repository of this program can be found here:
+
+https://github.com/miniTWOWHostingHelperWebApp/miniTWOWScoreCalculatorButInCpp1
+
 # To Users
 This is how it works. **This is for single-voting screen without keyword.** If you are using some screens, I'm sorry, but please wait for new update.
 1. Download "Prototype1.cpp" and compile the file into execution file. (*I'm sorry, but please prepare C++ compiler.*)
 2. Execute the file.
 3. It will ask you some questions, so follow those.
 4. The file will give you text that you should copy and paste to your spreadsheet.
+
+## Restruction
+To use the program, your voting-screen must be like this:
+1. There's only a voting screen.
+2. It has 2 or more and 26 or less responses.
+
+## Note
+If you add "-d" as an option, you can run in debug mode!
 
 Also, **feel free to leave "Issues".**
 
