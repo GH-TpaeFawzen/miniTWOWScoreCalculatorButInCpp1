@@ -4,7 +4,7 @@ Since I am used in C++ the most, I try making a prototype using the language.
 # Repository
 The repository of this program can be found here:
 
-https://github.com/miniTWOWHostingHelperWebApp/miniTWOWScoreCalculatorButInCpp1
+https://github.com/GH-TpaeFawzen/miniTWOWScoreCalculatorButInCpp1
 
 # To Users
 This is how it works. **This is for single-voting screen without keyword.** If you are using some screens, I'm sorry, but please wait for new update.
