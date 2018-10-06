@@ -52,11 +52,10 @@ string remover(string s, char l, Option o, int n, bool debug=false){
 			//DeBuG Below
 			if(debug){
 				cout << s << endl;
+				for(int j=0; j<i; j++)
+					cout << ' ';
+				cout << '^' << endl;
 			}
-				
-			for(int j=0; j<i; j++)
-				cout << ' ';
-			cout << '^' << endl;
 			
 			if(alS[s[i]-'A']){
 				s.erase(i,1);
